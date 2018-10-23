@@ -19,11 +19,11 @@
 
 let urlBD;
 
-if (process.env.NODE_ENV === 'dev') {
-    urlBD = 'mongodb://localhost:27017/cafe';
-} else {
-    urlBD = 'mongodb://cafe-user:123456a@ds249128.mlab.com:49128/cafe';
-}
+// if (process.env.NODE_ENV === 'dev') {
+    urlBD = 'mongodb://localhost:27017/Comutel';
+// } else {
+    // urlBD = 'mongodb://comutel-user:123456a@ds139883.mlab.com:39883/comutel';
+// }
 
 process.env.URLBD = urlBD;
 

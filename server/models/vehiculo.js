@@ -14,6 +14,8 @@ let vehiculoSchema = new Schema({
     unique: true,
     required: [true, 'La matrícula es necesaria']
   }
+}, {
+  collection: 'vehiculos',
 });
 
 
@@ -21,4 +23,4 @@ vehiculoSchema.plugin(uniqueValidator, {
   message: 'El valor {PATH} debe de ser único'
 });
 
-module.exports = mongoose.model('Vehiculo', vehiculoSchema);
+module.exports = mongoose.model('vehiculos', vehiculoSchema);

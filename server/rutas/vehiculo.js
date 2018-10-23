@@ -1,6 +1,10 @@
 const express = require('express');
 const app = express();
+const _ = require('lodash');
 const Vehiculo = require('../models/vehiculo');
+
+
+// Obtiene los registros de la BD
 
 app.get('/vehiculo', function(req, res) {
   // let desde = req.query.desde || 0;
@@ -12,14 +16,17 @@ app.get('/vehiculo', function(req, res) {
   Vehiculo.find({})
     // .skip(desde)
     //   .limit(limite)
-    .exec((err, vehiculos) => {
+    .exec((err, vehiculo) => {
       if (err) {
         return res.status(400).json({ ok: false, err: err });
       }
 
-      res.json({ ok: true, vehiculos: vehiculos });
+      res.json({ ok: true, vehiculo: vehiculo });
     });
 });
+
+
+// Crea un registro en la BD
 
 app.post('/vehiculo', function(req, res) {
   let body = req.body;
@@ -38,52 +45,55 @@ app.post('/vehiculo', function(req, res) {
   });
 });
 
-// app.put('/vehiculo/:id', function(req, res) {
-//   let id = req.params.id;
-//   let body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado']);
 
-//     Vehiculo.findByIdAndUpdate(
-//     id,
-//     body,
-//     { new: true, runValidators: true, context: 'query' },
-//       (err, vehiculoDB) => {
-//       if (err) {
-//         return res.status(400).json({
-//           ok: false,
-//           err: err
-//         });
-//       }
+// Actualiza un registro de la BD
 
-//       res.json({ ok: true, vehiculo: vehiculoDB });
-//     }
-//   );
-// });
+app.put('/vehiculo/:id', function(req, res) {
+  let id = req.params.id;
+  let body = _.pick(req.body, ['modelo', 'matricula']);
 
-// app.delete('/vehiculo/:id', function(req, res) {
-//   let id = req.params.id;
+    Vehiculo.findByIdAndUpdate(
+    id,
+    body,
+    { new: true, runValidators: true, context: 'query' },
+      (err, vehiculoDB) => {
+      if (err) {
+        return res.status(400).json({
+          ok: false,
+          err: err
+        });
+      }
 
-//     Vehiculo.findByIdAndUpdate(
-//       id,
-//       { status: false },
-//       (err, vehiculoBorrado) => {
-//         if (err) {
-//           return res.status(400).json({
-//             ok: false,
-//             err: err
-//           });
-//         }
+      res.json({ ok: true, vehiculo: vehiculoDB });
+    }
+  );
+});
 
-//         if (!vehiculoBorrado) {
-//           return res
-//             .status(400)
-//               .json({ ok: false, err: { message: 'Vehiculo no encontrado' } });
-//         }
 
-//         vehiculoBorrado.status = false;
+// Borra un registro de la BD
 
-//         res.json({ ok: true, vehiculo: vehiculoBorrado });
-//       }
-//     );
-// });
+app.delete('/vehiculo/:id', function(req, res) {
+  let id = req.params.id;
+
+    Vehiculo.findByIdAndDelete(
+      id,
+      (err, vehiculoBorrado) => {
+        if (err) {
+          return res.status(400).json({
+            ok: false,
+            err: err
+          });
+        }
+
+        if (!vehiculoBorrado) {
+          return res
+            .status(400)
+              .json({ ok: false, err: { message: 'Vehiculo no encontrado' } });
+        }
+
+        res.json({ ok: true, vehiculo: vehiculoBorrado });
+      }
+    );
+});
 
 module.exports = app;

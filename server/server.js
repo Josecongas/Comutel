@@ -6,6 +6,10 @@ require('./config/config');
 const mongoose = require('mongoose');
 const colors = require('colors');
 
+app.use(express.static(__dirname + '/comutel/src'))
+
+
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 

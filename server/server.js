@@ -23,7 +23,7 @@ app.use(require('./rutas/vehiculo'));
 mongoose.connect(
   process.env.URLBD,
   (err, res) => {
-    
+    console.log(process.env.URLBD);
     if (err) throw err;
 
     console.log('Base de datos ' + 'ONLINE'.green);

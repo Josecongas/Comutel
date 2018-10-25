@@ -19,6 +19,8 @@ app.use(bodyParser.json());
 
 // Habilitar la carpeta Public
 app.use(express.static(path.resolve(__dirname, '../comutel-app/src')));
+console.log(path.resolve(__dirname, '../comutel-app/src'));
+
 
 // CRUD de Vehiculo
 app.use(require('./rutas/vehiculo'));

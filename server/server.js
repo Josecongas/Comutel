@@ -10,6 +10,7 @@ const colors = require('colors');
 // Habilitar la carpeta Public
 app.use(express.static(path.resolve(__dirname, '../comutel-app/src')));
 console.log(path.resolve(__dirname, '../comutel-app/src'));
+console.log('hdi');
 
 
 
